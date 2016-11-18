@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta id="viewport" name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>登录</title>
+<style>
+@charset "utf-8";
+body,html{height:100%}
+body{font-size:16px;background:#eee;}
+*{padding:0;margin:0;list-style:none;text-decoration:none;box-sizing:border-box;}
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{color:#aaa}input::-ms-input-placeholder,textarea::-ms-input-placeholder{color:#aaa}input:focus{outline:0}
+.content{width:320px;margin:0 auto;height:485px;position:relative;}
+.login{margin:0 auto;padding-top:45px;}
+.web_login{margin:0 auto;width:290px;}
+.g_list{background:#fff;height:89px;border-radius:4px;}
+#g_u,#g_p{position:relative;}
+#g_u{border-bottom:1px solid #eaeaea;}
+.inputstyle{width:273px;height:44px;color:#000;border:none;background:0 0;padding:15px;font-size:16px;-webkit-appearance:none;}
+#go{width:290px;height:44px;line-height:44px;background:#9ac345;border:0;border-radius:4px;color:#fff;font-size:16px;margin-top:15px;display:block;text-align:center;}
+.switch{width:290px;margin:0 auto;position:relative;margin-top:15px;overflow:hidden;}
+.switch #zc{float:right;margin-right:-10px;}
+.switch #forgetpwd{float:left;margin-left:-10px;}
+.switch #zc, .switch #forgetpwd{color:#666;line-height:14px;font-size:14px;padding:15px 10px;}
+.urog-regclose{position:absolute;right:0;top:0;padding:14px;}
+</style>
+<script src="js/jquery.min.1.10.1.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+            $(function() {
+                $(".urog-form-role").click(function(event){
+                    //得到点击事件的dom结构
+                    var click_node = getEventTrigger(event);
+                    //得到点击close图片的data-close
+                    //data-close的值是input框的id
+                    var clickName = click_node.getAttribute("data-close");
+                    //得到点击事件的属性（INPUT）
+                    var clickInput = click_node.nodeName;
+                    //判断点击的是close图片，则清空相应id输入框的值，并隐藏该close图片
+                    if(clickName=='u'||clickName=='p'||clickName=='p2'){
+                        $("#"+clickName).val(null);
+                        $("#"+clickName).next().css("display","none");
+                    }
+                    //判断点击事件的元素是input框
+                    if(clickInput=="INPUT"){
+                        //获取INPUT的id
+                        var next_closeId = click_node.id;
+                        //绑定获取焦点和输入值-函数
+                        $("#"+next_closeId).bind("focus keyup",function(){
+                            //判断当前输入框的值不为空时
+                            if($("#"+next_closeId).val()!=''){
+                                $(".urog-regclose").css("display","none");
+                                //当前输入框的下一个同袍节点样式显示
+                                $("#"+next_closeId).next().css("display","block");
+                            }
+
+                        })
+                    }
+                })
+                //得到点击事件的dom结构
+                function getEventTrigger(event)
+                  {
+                      //ie 火狐 event兼容
+                      //参考资料： http://www.cnblogs.com/quanhai/archive/2010/04/20/1716149.html
+                       event = event? event: window.event
+                    　　var x = event.srcElement ? event.srcElement:event.target;
+                       return x;
+                  }
+            })
+        </script>
+        <script>
+			function logIn(){
+				var logName = $("#u").val();
+				var logPass = $("#p").val();
+				var logObj = jsObject.getMessage(lognName,logPass);
+			}
+		</script>
+</head>
+
+<body>
+	<div id="content" class="content">
+    	<div id="login" class="login">
+        	<div class="logo"></div>
+            <div class="web_login">
+            	<ul class="g_list urog-form-role urog-phone">
+                	<li id="g_u">
+                    	<input id="u" class="inputstyle" name="u" autocomplete="off" placeholder="账号名称"><img src="images/close.svg" class="urog-regclose" data-close="u" style="display:none"/>
+                    </li>
+                    <li id="g_p">
+                    	<input id="p" class="inputstyle" name="p" maxlength="16" type="password" autocomplete="off" placeholder="请输入您的密码"><img src="images/close.svg" class="urog-regclose" data-close="p" style="display:none"/>
+                    </li>
+                </ul>
+                <div href="" id="go">登 录</div>
+            </div>
+            <div class="switch">
+            	<span id="zc" onClick="">注册新账号</span>
+                <span id="forgetpwd" onClick="">忘记密码?</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
